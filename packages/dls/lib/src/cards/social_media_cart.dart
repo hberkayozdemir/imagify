@@ -2,14 +2,19 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:imagify/app/features/websites/websitemodel.dart';
 
 class SocialMediaCard extends StatefulWidget {
   const SocialMediaCard(
-      {super.key, required this.model, required this.username});
-  final Website model;
-  final String username;
+      {super.key,
+      required this.onCall,
+      required this.icon,
+      required this.username,
+      required this.title,
+      required this.description});
 
+  final VoidCallback onCall;
+  final String username, title, description;
+  final IconData icon;
   @override
   State<SocialMediaCard> createState() => _SocialMediaCardState();
 }
@@ -23,7 +28,7 @@ class _SocialMediaCardState extends State<SocialMediaCard> {
           setState(() {
             isTapped = true;
           });
-          widget.model.onCall(widget.username);
+          widget.onCall();
         },
         child: Container(
           margin: const EdgeInsets.all(12),
@@ -35,12 +40,13 @@ class _SocialMediaCardState extends State<SocialMediaCard> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xff1C1B1F),
+                        color: const Color(0xff1C1B1F),
                         blurRadius: isTapped ? 2 : 0.50,
                       )
                     ],
-                    border: Border.all(color: Color(0xffCAC3D0), width: 0.5),
-                    color: Color(0xffFFFBFE)),
+                    border:
+                        Border.all(color: const Color(0xffCAC3D0), width: 0.5),
+                    color: const Color(0xffFFFBFE)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -49,8 +55,8 @@ class _SocialMediaCardState extends State<SocialMediaCard> {
                         flex: 5,
                         child: TextedIcon(
                           description: widget.username,
-                          title: widget.model.title,
-                          icon: widget.model.icon,
+                          title: widget.title,
+                          icon: widget.icon,
                         )),
                     Flexible(
                       flex: 2,
@@ -63,7 +69,7 @@ class _SocialMediaCardState extends State<SocialMediaCard> {
   }
 
   Widget imagebanner() {
-    return SizedBox.expand(
+    return const SizedBox.expand(
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -100,13 +106,13 @@ class TextedIcon extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            backgroundColor: Color(0xffEADDFF),
+            backgroundColor: const Color(0xffEADDFF),
             child: FaIcon(
               icon,
-              color: Color(0xff21005D),
+              color: const Color(0xff21005D),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 16,
           ),
           Column(
@@ -116,14 +122,14 @@ class TextedIcon extends StatelessWidget {
                 title,
                 style: GoogleFonts.roboto(
                     height: 1.4,
-                    textStyle:
-                        TextStyle(fontSize: 16.0, color: Color(0xff1C1B1F))),
+                    textStyle: const TextStyle(
+                        fontSize: 16.0, color: Color(0xff1C1B1F))),
               ),
               AutoSizeText(
                 description,
                 maxLines: 2,
                 style: GoogleFonts.roboto(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                         height: 1,
                         wordSpacing: 0.25,
                         fontSize: 14.0,

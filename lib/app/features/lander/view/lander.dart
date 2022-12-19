@@ -1,8 +1,9 @@
+import 'package:dls/dls.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:imagify/app/features/username_search/username_search.dart';
-import 'package:imagify/dls/list_tile.dart';
+import 'package:imagify/app/features/history/view/history_view.dart';
+import 'package:imagify/app/features/username/search/view/username_search.dart';
 
 class Lander extends StatelessWidget {
   const Lander({super.key});
@@ -110,7 +111,10 @@ class Lander extends StatelessWidget {
               icon: FontAwesomeIcons.clockRotateLeft,
               title: "Search History",
               description: "The history  show all operations in application",
-              ontap: () {},
+              ontap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => HistoryView())));
+              },
             ),
           ],
         ),

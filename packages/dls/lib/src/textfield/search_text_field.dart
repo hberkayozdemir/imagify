@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:imagify/app/features/username_search/username_search.dart';
 
 class SearchTextField extends StatefulWidget {
-  SearchTextField(
+  const SearchTextField(
       {Key? key,
       required this.onSubmit,
       required this.controller,
@@ -49,6 +48,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
       enableSuggestions: true,
       style: GoogleFonts.roboto(fontSize: 12),
       cursorColor: Colors.purple.shade800,
+      onSaved: (value) => value != null ? widget.onSubmit(value) : null,
       onChanged: (value) {
         if (widget.validatorUpdate != null) {
           if (widget.validatorUpdate!(value)) {
@@ -69,10 +69,10 @@ class _SearchTextFieldState extends State<SearchTextField> {
       },
       decoration: InputDecoration(
           suffixIcon: Padding(
-              padding: EdgeInsets.all(12),
-              child: (control.text == "")
+              padding: const EdgeInsets.all(12),
+              child: (widget.controller.text == "")
                   ? IconButton(
-                      padding: EdgeInsets.all(1),
+                      padding: const EdgeInsets.all(1),
                       iconSize: 13,
                       onPressed: () => null,
                       icon: FaIcon(
@@ -82,7 +82,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
                       ),
                     )
                   : IconButton(
-                      padding: EdgeInsets.all(1),
+                      padding: const EdgeInsets.all(1),
                       iconSize: 13,
                       onPressed: () {
                         setState(() {
@@ -101,7 +101,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
               color: Colors.purple.shade800,
             ),
           ),
-          contentPadding: EdgeInsets.all(12),
+          contentPadding: const EdgeInsets.all(12),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide(color: Colors.grey.shade800, width: 1),

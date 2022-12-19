@@ -3,21 +3,21 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Website {
+class Links {
   final String title, link;
   final IconData icon;
-  Website({
+  Links({
     required this.link,
     required this.icon,
     required this.title,
   });
 
-  Website copyWith({
+  Links copyWith({
     String? title,
     link,
     IconData? icon,
   }) {
-    return Website(
+    return Links(
         link: link ?? this.link,
         icon: icon ?? this.icon,
         title: title ?? this.title);

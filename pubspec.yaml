@@ -19,7 +19,6 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   flutter_localization: ^0.1.9
-  flutter_riverpod: ^2.1.1
   freezed_annotation: ^2.2.0
   rxdart: ^0.27.7
   isar: ^3.0.5
@@ -31,11 +30,23 @@ dependencies:
   google_fonts: ^3.0.1
   font_awesome_flutter: ^10.3.0
   auto_size_text: ^3.0.0
+  build_runner: ^2.3.3
+  isar_flutter_libs: ^3.0.5
+
+  dls: 
+    path: ./packages/dls
+
+  hooks_riverpod: 
+  flutter_hooks: ^0.18.5+1
 
 dev_dependencies:
+  enum_to_string: ^2.0.1
+  equatable: ^2.0.5
   flutter_launcher_icons: ^0.11.0
   flutter_test:
     sdk: flutter
+  get: ^4.6.5
+  isar_generator: ^3.0.5
   my_mvvm: ^0.0.2
   url_launcher: ^6.1.7
 flutter:

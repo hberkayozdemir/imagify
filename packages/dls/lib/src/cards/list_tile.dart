@@ -1,6 +1,6 @@
+import 'package:dls/dls.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:imagify/dls/text_box.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
@@ -19,7 +19,7 @@ class CustomListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15.0),
       child: DecoratedBox(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Color(
           0xffFFFBFE,
         )),
@@ -32,12 +32,12 @@ class CustomListTile extends StatelessWidget {
               child: IconButton(
                 onPressed: ontap,
                 icon: CircleAvatar(
-                    backgroundColor: Color(0xffEADDFF),
+                    backgroundColor: const Color(0xffEADDFF),
                     radius: 50,
                     child: FaIcon(
                       size: 15,
                       icon,
-                      color: Color(0xff21005D),
+                      color: const Color(0xff21005D),
                     )),
               ),
             ),
