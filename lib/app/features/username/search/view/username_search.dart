@@ -14,30 +14,29 @@ class UsernameSearchView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final control = TextEditingController(text: username);
-    final userNameSearchVM = ref.watch(userNameSearchViewModel);
+    List<SearchModel> userNameSearchVM = ref.watch(userNameSearchViewModel);
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        backgroundColor: Color(0xffF8F3FA),
-        elevation: 0,
-        title: Text(
-          "Search Username",
-          style: GoogleFonts.roboto(
-            textStyle: TextStyle(
-                color: Color(0xff1C1B1F), fontWeight: FontWeight.w600),
+        appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.black),
+          backgroundColor: Color(0xffF8F3FA),
+          elevation: 0,
+          title: Text(
+            "Search Username",
+            style: GoogleFonts.roboto(
+              textStyle: TextStyle(
+                  color: Color(0xff1C1B1F), fontWeight: FontWeight.w600),
+            ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(22.0),
-        child: Column(
+        body: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SearchTextField(
                   onChanged: (value) => null,
-                  onSubmit: ((value) =>
-                      _onSubmit(value, context, userNameSearchVM)),
+                  onSubmit: ((value) => _onSubmit(value, context, ref)),
                   controller: control),
               SizedBox(
                 height: 10,
@@ -56,9 +55,7 @@ class UsernameSearchView extends ConsumerWidget {
                   ),
                   TextButton(
                       onPressed: () {
-                        userNameSearchVM.deleteAll();
-                        userNameSearchVM.notifyListeners();
-
+                        ref.read(userNameSearchViewModel.notifier).deleteAll();
                       },
                       child: Text(
                         "Clear",
@@ -75,52 +72,40 @@ class UsernameSearchView extends ConsumerWidget {
                 height: 10,
               ),
               Expanded(
-                  child: StreamBuilder(
-                stream: Stream.fromFuture(
-                  userNameSearchVM.getHistory(),
-                ),
-                builder: (context, snapshot) => ListView.builder(
-                    itemCount: userNameSearchVM.userNameHistorylist.length,
+                child: ListView.builder(
+                    itemCount: userNameSearchVM.length,
                     shrinkWrap: true,
                     cacheExtent: 100,
                     itemExtent: 120,
                     itemBuilder: (BuildContext context, int index) {
                       return CustomListTile(
                           icon: FontAwesomeIcons.user,
-                          title: userNameSearchVM
-                                  .userNameHistorylist[index].title ??
-                              "username",
-                          description: userNameSearchVM
-                              .userNameHistorylist[index].time
-                              .toString(),
+                          title: userNameSearchVM[index].title ?? "username",
+                          description: userNameSearchVM[index].time.toString(),
                           ontap: () {
                             Navigator.push(
                               context,
                               CupertinoPageRoute(
                                   builder: (context) => LinksView(
-                                        username: userNameSearchVM
-                                                .userNameHistorylist[index]
-                                                .title ??
-                                            "username",
+                                        username:
+                                            userNameSearchVM[index].title ??
+                                                "username",
                                       )),
                             );
                           });
                     }),
-              ))
-            ]),
-      ),
-    );
+              )
+            ],
+          ),
+        ));
   }
 
-  void _onSubmit(
-      String value, BuildContext context, UserNameSearchViewModel vm) async {
+  void _onSubmit(String value, BuildContext context, WidgetRef ref) async {
     final resultModel = SearchModel()
       ..time = DateTime.now()
       ..title = value
       ..type = "username";
-
-    vm.addNewUser(resultModel);
-    Navigator.pop(context);
+    await ref.read(userNameSearchViewModel.notifier).addNewUser(resultModel);
     Navigator.push(
       context,
       CupertinoPageRoute(
